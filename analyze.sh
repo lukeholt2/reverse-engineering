@@ -17,6 +17,6 @@ GHIDRA=$(find ~/ -type f -name 'analyzeHeadless')
 SCRIPTPATH=~/reverse-engineering/
 
 
-$GHIDRA . tmp_proj -import $BINARY -deleteProject -scriptPath $SCRIPTPATH -postScript ./ProjectScript.java
+$GHIDRA . tmp_proj -import $BINARY -deleteProject -scriptPath $SCRIPTPATH -postScript ./Detection.java
 
 
