@@ -1,8 +1,6 @@
-/**
- * Base Script class used to perform common operations (e.g. program validation)  
- * @author lukeholt
- *
- */
+// Base Script class used to perform common operations (e.g. program validation)  
+// @author lukeholt
+ 
 
 import ghidra.app.script.GhidraScript;
 

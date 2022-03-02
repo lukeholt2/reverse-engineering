@@ -1,3 +1,6 @@
+// Detect anti-vm strings contained in program
+// @author lukeholt
+
 
 import ghidra.program.model.address.Address;
 import java.util.ArrayList;

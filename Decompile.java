@@ -1,8 +1,6 @@
-/**
- * Decompiles binary to c++
- * @author lukeholt
- *  
- */
+// Decompiles binary to c++
+// @author lukeholt
+
 
 
 import ghidra.app.util.exporter.CppExporter;
