@@ -21,6 +21,7 @@ SCRIPTPATH=~/reverse-engineering/
 # -scriptPath - search path to ensure scripts are found
 # -postScript - specifies script to run
 # -scriptlog - where to log output from scripts (ignoring the other clutter outputted by ghidra)
-$GHIDRA . tmp_proj -import $BINARY -deleteProject -scriptPath $SCRIPTPATH -postScript ./Detection.java -scriptlog ./results.log
+# -analysisTimeoutPerFile - running multiple scripts can lead to timeout so need to manually increase timeout. 100s is a  _long_ time so no more than that should be needed
+$GHIDRA . tmp_proj -import $BINARY -deleteProject -scriptPath $SCRIPTPATH -postScript ./Detection.java -scriptlog ./results.log -analysisTimeoutPerFile 100
 
 
