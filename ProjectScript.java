@@ -22,14 +22,13 @@ import ghidra.program.model.lang.*;
 import ghidra.program.model.pcode.*;
 import ghidra.program.model.address.*;
 
-public class ProjectScript extends GhidraScript {
+public class ProjectScript extends BaseScript {
 	public static List<String> ANTI_VM_INSTRUCTIONS = new ArrayList<>(Arrays.asList("SIDT", "SGDT", "SLDT", "SMSW", "STR", "IN", "CPUID"));
-	
+
+   
     public void run() throws Exception {
-		if (currentProgram == null) {
-			println("NO CURRENT PROGRAM");
-			return;
-		}
+
+	        super.run();
 		
 		InstructionIterator instructions = currentProgram.getListing().getInstructions(currentProgram.getMinAddress(), true);
 		for(Instruction instruction : instructions) {
