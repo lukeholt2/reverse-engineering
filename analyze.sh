@@ -25,3 +25,9 @@ SCRIPTPATH=~/reverse-engineering/
 $GHIDRA . tmp_proj -import $BINARY -deleteProject -scriptPath $SCRIPTPATH -postScript ./Detection.java -scriptlog ./results.log -analysisTimeoutPerFile 100
 
 
+# it's honeslty way simpler to do this here rather than in java
+if [ ! -d decompiled ]; then
+    mkdir decompiled
+fi
+mv *.cpp decompiled/
+mv *.h decompiled/
