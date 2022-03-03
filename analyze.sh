@@ -26,7 +26,6 @@ SCRIPTPATH=~/reverse-engineering/
 $GHIDRA . tmp_proj -import $BINARY \
 	-deleteProject \
 	-scriptPath $SCRIPTPATH \
-	-propertiesPath $SCRIPTPATH \
 	-postScript ./Detection.java \
 	-scriptlog ./results.log \
 	-analysisTimeoutPerFile 100
