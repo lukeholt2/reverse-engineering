@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
+import util.CollectionUtils;
 
 import generic.stl.Pair;
 import ghidra.app.plugin.assembler.Assembler;
@@ -30,7 +31,6 @@ import ghidra.program.model.mem.MemoryAccessException;
 import ghidra.program.model.symbol.Reference;
 import ghidra.program.model.util.CodeUnitInsertionException;
 import ghidra.program.util.DefinedDataIterator;
-import util.CollectionUtils;
 
 
 public class ProjectScript extends BaseScript {
@@ -53,18 +53,14 @@ public class ProjectScript extends BaseScript {
 			if(ANTI_VM_INSTRUCTIONS.contains(instructionString)) {
 				println("Found " + instructionString + " at " + instruction.getAddress());
 				
-				AddressSet set = new AddressSet();
-				set.add(instruction.getAddress());
-				this.createHighlight(set);
+				HighlightAddress(instruction);
 			}
 			
 			// Search for known anti-vm instructions
 			if(TIMING_ATTACK_INSTRUCTIONS.contains(instructionString)) {
 				println("Found possible timing attack " + instructionString + " at " + instruction.getAddress());
 				
-				AddressSet set = new AddressSet();
-				set.add(instruction.getAddress());
-				this.createHighlight(set);
+				HighlightAddress(instruction);
 			}
 		}
 		
@@ -90,6 +86,15 @@ public class ProjectScript extends BaseScript {
 		if (!foundStrings.isEmpty()) {
 			mangleStrings(foundStrings);
 		}
+    }
+    
+    /**
+     *  Highlights address of the provided instructionß
+     */
+    private void HighlightAddress(Instruction instruction) {
+    	AddressSet set = new AddressSet();
+		set.add(instruction.getAddress());
+		this.createHighlight(set);
     }
     
     /**
