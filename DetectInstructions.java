@@ -33,7 +33,7 @@ import ghidra.program.model.util.CodeUnitInsertionException;
 import ghidra.program.util.DefinedDataIterator;
 
 
-public class ProjectScript extends BaseScript {
+public class DetectInstructions extends BaseScript {
 	
 	
 	public static List<String> ANTI_VM_INSTRUCTIONS = new ArrayList<>(Arrays.asList("SIDT", "SGDT", "SLDT", "SMSW", "STR", "IN", "CPUID"));
