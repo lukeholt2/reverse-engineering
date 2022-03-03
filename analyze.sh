@@ -19,10 +19,17 @@ SCRIPTPATH=~/reverse-engineering/
 # tmp_proj - project name; use temp name as it will be deleted after
 # -deleteProject - self-explanatory, delete the project when finished
 # -scriptPath - search path to ensure scripts are found
+# -propertiesPath - search path for properties used for script prompts (e.g. askYesorNo)
 # -postScript - specifies script to run
 # -scriptlog - where to log output from scripts (ignoring the other clutter outputted by ghidra)
 # -analysisTimeoutPerFile - running multiple scripts can lead to timeout so need to manually increase timeout. 100s is a  _long_ time so no more than that should be needed
-$GHIDRA . tmp_proj -import $BINARY -deleteProject -scriptPath $SCRIPTPATH -postScript ./Detection.java -scriptlog ./results.log -analysisTimeoutPerFile 100
+$GHIDRA . tmp_proj -import $BINARY \
+	-deleteProject \
+	-scriptPath $SCRIPTPATH \
+	-propertiesPath $SCRIPTPATH \
+	-postScript ./Detection.java \
+	-scriptlog ./results.log \
+	-analysisTimeoutPerFile 100
 
 
 # it's honeslty way simpler to do this here rather than in java
