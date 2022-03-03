@@ -32,15 +32,13 @@ import ghidra.program.model.symbol.Reference;
 import ghidra.program.model.util.CodeUnitInsertionException;
 import ghidra.program.util.DefinedDataIterator;
 
-
 public class DetectInstructions extends BaseScript {
-	
-	
-	public static List<String> ANTI_VM_INSTRUCTIONS = new ArrayList<>(Arrays.asList("SIDT", "SGDT", "SLDT", "SMSW", "STR", "IN", "CPUID"));
+
+	public static List<String> ANTI_VM_INSTRUCTIONS = new ArrayList<>(
+			Arrays.asList("SIDT", "SGDT", "SLDT", "SMSW", "STR", "IN", "CPUID"));
 	public static List<String> TIMING_ATTACK_INSTRUCTIONS = new ArrayList<>(Arrays.asList("RDTSC", "RDTSCP"));
-	
-	
-    public void run() throws Exception {
+
+	public void run() throws Exception {
 		
     	super.run();
 		
@@ -63,15 +61,14 @@ public class DetectInstructions extends BaseScript {
 				HighlightAddress(instruction);
 			}
 		}
-	
-    
-    /**
-     *  Highlights address of the provided instructionß
-     */
-    private void HighlightAddress(Instruction instruction) {
-    	AddressSet set = new AddressSet();
+
+	/**
+	 * Highlights address of the provided instructionß
+	 */
+	private void HighlightAddress(Instruction instruction) {
+		AddressSet set = new AddressSet();
 		set.add(instruction.getAddress());
 		this.createHighlight(set);
-    }
+	}
 
 }

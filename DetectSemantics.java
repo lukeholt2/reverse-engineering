@@ -4,6 +4,7 @@
 import ghidra.program.model.address.Address;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class DetectSemantics extends BaseScript {
 
@@ -53,10 +54,10 @@ public class DetectSemantics extends BaseScript {
 	 */
 	private void mangleStrings(List<Pair<String, Data>> foundStrings)
 			throws CodeUnitInsertionException, DataTypeConflictException, MemoryAccessException {
-		
-		if(!foundStrings.isEmpty())
+
+		if (!foundStrings.isEmpty())
 			return;
-		
+
 		final boolean isMangling = this.askYesNo("String Mangle", "Would you like to mangle the Anti-VM instruction?");
 		if (isMangling) {
 			Assembler assembler = Assemblers.getAssembler(currentProgram);
@@ -135,7 +136,7 @@ public class DetectSemantics extends BaseScript {
 			Scanner scanner = new Scanner(new File(SEMANTIC_VALUES_FILENAME));
 
 			while (scanner.hasNext()) {
-				values.add(scanner.next());
+				values.add(scanner.nextLine());
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
