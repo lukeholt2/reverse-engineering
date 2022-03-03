@@ -4,6 +4,8 @@
 
 The `analyze.sh` is designed to run each custom Ghidra Script headlessly by using the `analyzeHeadless` exectutable that is packaged with Ghidra.
 
+**Note:** _The script will attempt to find the path to `analyzeHeadless` but this may need to be modifed to use the correct path_
+
 `Detections.java` is passed to `analyzeHeadless` to be ran and then runs each of the other Ghidra Scripts.
 
 #### Sub Scripts Ran
