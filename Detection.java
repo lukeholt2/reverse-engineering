@@ -17,7 +17,7 @@ public class Detection extends HeadlessScript {
 
 		for (File script : GetScriptFiles()) {
 			// now run each script passing the state along to each
-		    printf("Running: %s", script.getName()); 
+			printf("Running: %s", script.getName());
 			this.runScript(script.getName(), this.getState());
 		}
 
@@ -32,8 +32,10 @@ public class Detection extends HeadlessScript {
 	private File[] GetScriptFiles() {
 		try {
 			File workingDir = new File(".");
+			// get all the java files -- excluding this one and the baseScript (it's abstract)
 			return workingDir.listFiles(
-						    (File file) -> file.getName().endsWith(".java") && !(file.getName().equals("Detection.java") || file.getName().equals("BaseScript.java")));
+					(File file) -> file.getName().endsWith(".java")
+							&& !(file.getName().equals("Detection.java") || file.getName().equals("BaseScript.java")));
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		}
