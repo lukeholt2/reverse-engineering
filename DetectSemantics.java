@@ -1,10 +1,33 @@
 // Detect anti-vm strings contained in program
 // @author lukeholt
 
-import ghidra.program.model.address.Address;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Iterator;
+import java.util.List;
+import util.CollectionUtils;
+import generic.stl.Pair;
+
+import ghidra.program.model.address.Address;
+import ghidra.app.plugin.assembler.Assembler;
+import ghidra.app.plugin.assembler.Assemblers;
+import ghidra.app.script.GhidraScript;
+import ghidra.program.model.address.Address;
+import ghidra.program.model.address.AddressSet;
+import ghidra.program.model.data.DataType;
+import ghidra.program.model.data.DataTypeConflictException;
+import ghidra.program.model.data.StringDataInstance;
+import ghidra.program.model.listing.Data;
+import ghidra.program.model.listing.Instruction;
+import ghidra.program.model.listing.InstructionIterator;
+import ghidra.program.model.listing.Program;
+import ghidra.program.model.mem.MemoryAccessException;
+import ghidra.program.model.symbol.Reference;
+import ghidra.program.model.util.CodeUnitInsertionException;
+import ghidra.program.util.DefinedDataIterator;
 
 public class DetectSemantics extends BaseScript {
 
@@ -37,8 +60,6 @@ public class DetectSemantics extends BaseScript {
 		}
 
 		mangleStrings(foundStrings);
-	}
-
 	}
 
 	/**

@@ -23,9 +23,10 @@ public class Detection extends HeadlessScript {
 	}
 
 	/**
-	 *  Gets all the current Ghidra Script files 
-	 *  Searches the current directory for java files excluding this one
-	 *  @return An array of Files representing the anti-vm ghidra scripts
+	 * Gets all the current Ghidra Script files
+	 * Searches the current directory for java files excluding this one
+	 * 
+	 * @return An array of Files representing the anti-vm ghidra scripts
 	 */
 	private File[] GetScriptFiles() {
 		try {

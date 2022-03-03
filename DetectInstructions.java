@@ -5,16 +5,12 @@
 //@menupath 
 //@toolbar 
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Scanner;
 import util.CollectionUtils;
 
-import generic.stl.Pair;
 import ghidra.app.plugin.assembler.Assembler;
 import ghidra.app.plugin.assembler.Assemblers;
 import ghidra.app.script.GhidraScript;
@@ -39,28 +35,30 @@ public class DetectInstructions extends BaseScript {
 	public static List<String> TIMING_ATTACK_INSTRUCTIONS = new ArrayList<>(Arrays.asList("RDTSC", "RDTSCP"));
 
 	public void run() throws Exception {
-		
-    	super.run();
-		
-		InstructionIterator instructions = currentProgram.getListing().getInstructions(currentProgram.getMinAddress(), true);
-		
-		for(Instruction instruction : instructions) {
+
+		super.run();
+
+		InstructionIterator instructions = currentProgram.getListing().getInstructions(currentProgram.getMinAddress(),
+				true);
+
+		for (Instruction instruction : instructions) {
 			String instructionString = instruction.getMnemonicString();
-			
+
 			// Search for known anti-vm instructions
-			if(ANTI_VM_INSTRUCTIONS.contains(instructionString)) {
+			if (ANTI_VM_INSTRUCTIONS.contains(instructionString)) {
 				println("Found " + instructionString + " at " + instruction.getAddress());
-				
+
 				HighlightAddress(instruction);
 			}
-			
+
 			// Search for known anti-vm instructions
-			if(TIMING_ATTACK_INSTRUCTIONS.contains(instructionString)) {
+			if (TIMING_ATTACK_INSTRUCTIONS.contains(instructionString)) {
 				println("Found possible timing attack " + instructionString + " at " + instruction.getAddress());
-				
+
 				HighlightAddress(instruction);
 			}
 		}
+	}
 
 	/**
 	 * Highlights address of the provided instructionß
