@@ -33,17 +33,18 @@ import ghidra.program.util.DefinedDataIterator;
 import util.CollectionUtils;
 
 
-public class ProjectScript extends BaseScript {
-	
-	public final static String SEMANTIC_VALUES_FILENAME = "./SemanticValues.txt";
+public class ProjectScript extends GhidraScript {
+	public static String SEMANTIC_VALUES_FILENAME = "/home/parallels/ghidra_scripts/SemanticValues.txt";
 	
 	public static List<String> ANTI_VM_INSTRUCTIONS = new ArrayList<>(Arrays.asList("SIDT", "SGDT", "SLDT", "SMSW", "STR", "IN", "CPUID"));
 	public static List<String> TIMING_ATTACK_INSTRUCTIONS = new ArrayList<>(Arrays.asList("RDTSC", "RDTSCP"));
 	public static List<String> SEMANTIC_VALUES = getSemanticValues();
 	
     public void run() throws Exception {
-		
-    	super.run();
+		if (currentProgram == null) {
+			println("NO CURRENT PROGRAM");
+			return;
+		}
 		
 		InstructionIterator instructions = currentProgram.getListing().getInstructions(currentProgram.getMinAddress(), true);
 		
