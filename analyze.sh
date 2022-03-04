@@ -22,12 +22,19 @@ SCRIPTPATH=~/reverse-engineering/
 # -postScript - specifies script to run
 # -scriptlog - where to log output from scripts (ignoring the other clutter outputted by ghidra)
 # -analysisTimeoutPerFile - running multiple scripts can lead to timeout so need to manually increase timeout. 100s is a  _long_ time so no more than that should be needed
-$GHIDRA . tmp_proj -import $BINARY -deleteProject -scriptPath $SCRIPTPATH -postScript ./Detection.java -scriptlog ./results.log -analysisTimeoutPerFile 100
+$GHIDRA . tmp_proj -import $BINARY \
+	-deleteProject \
+	-scriptPath $SCRIPTPATH \
+	-postScript ./Detection.java \
+	-scriptlog ./results.log \
+	-analysisTimeoutPerFile 100
 
 
 # it's honeslty way simpler to do this here rather than in java
 if [ ! -d decompiled ]; then
     mkdir decompiled
 fi
-mv *.cpp decompiled/
-mv *.h decompiled/
+if [ -f *.cpp ]; then
+    mv *.cpp decompiled/
+    mv *.h decompiled/
+fi
