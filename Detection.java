@@ -1,9 +1,11 @@
+
 // Driver for running individual scripts for Anti-VM Detection
 // @author lukeholt
-
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
+import generic.jar.ResourceFile;
+import ghidra.app.script.GhidraScriptUtil;
 
 import ghidra.app.util.headless.HeadlessScript;
 
@@ -15,9 +17,9 @@ public class Detection extends HeadlessScript {
 		// but ensure continuation between scripts
 		setHeadlessContinuationOption(HeadlessContinuationOption.CONTINUE_THEN_DELETE);
 
-		for (File script : GetScriptFiles()) {
+		for (ResourceFile script : GetScriptFiles()) {
 			// now run each script passing the state along to each
-			printf("Running: %s", script.getName());
+			printf("Running: %s\n", script.getName());
 			this.runScript(script.getName(), this.getState());
 		}
 
@@ -29,18 +31,20 @@ public class Detection extends HeadlessScript {
 	 * 
 	 * @return An array of Files representing the anti-vm ghidra scripts
 	 */
-	private File[] GetScriptFiles() {
+	private ResourceFile[] GetScriptFiles() {
 		try {
-			File workingDir = new File(".");
-			// get all the java files -- excluding this one and the baseScript (it's abstract)
+			ResourceFile workingDir = GhidraScriptUtil.findSourceDirectoryContaining(this.sourceFile);
+			// get all the java files -- excluding this one and the baseScript (it's
+			// abstract)
 			return workingDir.listFiles(
-					(File file) -> file.getName().endsWith(".java")
-							&& !(file.getName().equals("Detection.java") || file.getName().equals("BaseScript.java")));
+					(ResourceFile file) -> file.getName().endsWith(".java")
+							&& !(file.getName().equals(this.sourceFile.getName())
+									|| file.getName().equals("BaseScript.java")));
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		}
 
-		return new File[0];
+		return new ResourceFile[0];
 	}
 
 }

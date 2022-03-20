@@ -10,7 +10,8 @@ import java.util.Iterator;
 import java.util.List;
 import util.CollectionUtils;
 import generic.stl.Pair;
-
+import generic.jar.ResourceFile;
+import ghidra.app.script.GhidraScriptUtil;
 import ghidra.program.model.address.Address;
 import ghidra.app.plugin.assembler.Assembler;
 import ghidra.app.plugin.assembler.Assemblers;
@@ -31,13 +32,15 @@ import ghidra.program.util.DefinedDataIterator;
 
 public class DetectSemantics extends BaseScript {
 
-	public final static String SEMANTIC_VALUES_FILENAME = "./SemanticValues.txt";
-	public static List<String> SEMANTIC_VALUES = getSemanticValues();
+	public final static String SEMANTIC_VALUES_FILENAME = "SemanticValues.txt";
+	private List<String> SEMANTIC_VALUES;
 
 	@Override
 	protected void run() throws Exception {
 
 		super.run();
+
+		SEMANTIC_VALUES = getSemanticValues();
 
 		List<Pair<String, Data>> strings = getProgramStrings(this.currentProgram);
 		List<Pair<String, Data>> foundStrings = new ArrayList<>();
@@ -78,7 +81,7 @@ public class DetectSemantics extends BaseScript {
 
 		if (foundStrings.isEmpty())
 			return;
-		
+
 		final boolean isMangling = this.askYesNo("String Mangle", "Would you like to mangle the Anti-VM instruction?");
 		if (isMangling) {
 			Assembler assembler = Assemblers.getAssembler(currentProgram);
@@ -151,10 +154,13 @@ public class DetectSemantics extends BaseScript {
 	 * 
 	 * @return string list of known VM values
 	 */
-	private static List<String> getSemanticValues() {
+	private List<String> getSemanticValues() {
 		List<String> values = new ArrayList<>();
 		try {
-			Scanner scanner = new Scanner(new File(SEMANTIC_VALUES_FILENAME));
+			ResourceFile workingDir = GhidraScriptUtil.findSourceDirectoryContaining(this.sourceFile);
+			ResourceFile semantics = workingDir.listFiles(
+					(ResourceFile file) -> file.getName().equals(SEMANTIC_VALUES_FILENAME))[0];
+			Scanner scanner = new Scanner(semantics.getFile(true));
 
 			while (scanner.hasNext()) {
 				values.add(scanner.nextLine());
