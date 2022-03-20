@@ -12,7 +12,7 @@ fi
 # to simple search from the home directory
 GHIDRA=$(find ~/ -type f -name 'analyzeHeadless')
 # specify the directory containing custom ghidra scripts
-SCRIPTPATH=~/reverse-engineering/
+SCRIPTPATH=$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 
 # run the ghidra 'analyzeHeadless' with the settings:
 # . - use current directory
