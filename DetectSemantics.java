@@ -76,9 +76,9 @@ public class DetectSemantics extends BaseScript {
 	private void mangleStrings(List<Pair<String, Data>> foundStrings)
 			throws CodeUnitInsertionException, DataTypeConflictException, MemoryAccessException {
 
-		if (!foundStrings.isEmpty())
+		if (foundStrings.isEmpty())
 			return;
-
+		
 		final boolean isMangling = this.askYesNo("String Mangle", "Would you like to mangle the Anti-VM instruction?");
 		if (isMangling) {
 			Assembler assembler = Assemblers.getAssembler(currentProgram);
