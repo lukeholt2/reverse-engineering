@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class DetectTiming extends BaseScript {
 
-    private final int THRESHOLD = 100;
+    private final int THRESHOLD = 500;
 
     private int loop_iterations = 0;
 
@@ -29,12 +29,11 @@ public class DetectTiming extends BaseScript {
         ifc.openProgram(currentProgram);
 
         for (Function func : currentProgram.getFunctionManager().getFunctions(true)) {
-
+          
             DecompileResults res = ifc.decompileFunction(func, 0, this.monitor);
 
             ClangTokenGroup tokenGroup = res.getCCodeMarkup();
 
-            int iterations = 0;
             for (ClangNode node : tokenGroup) {
                 if (node instanceof ClangTokenGroup) {
                     IterateTokenGroup((ClangTokenGroup) node);
